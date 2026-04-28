@@ -1,6 +1,7 @@
 package com.klu.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,14 +12,14 @@ import com.klu.repository.UserRepository;
 @Service
 public class UserService {
 
-   @Autowired
-private UserRepository repo;
+    @Autowired
+    private UserRepository repo;
 
     // 🔹 Register (student + admin)
     public User register(User user) {
 
         // check duplicate email
-        if (repo.findByEmail(user.getEmail()) != null) {
+        if (repo.findByEmail(user.getEmail()).isPresent()) {
             return null;
         }
 
@@ -48,13 +49,15 @@ private UserRepository repo;
         }
 
         try {
-            User user = repo.findByEmail(email);
+            Optional<User> optionalUser = repo.findByEmail(email);
 
-            if (user != null &&
-                user.getPassword() != null &&
-                user.getPassword().equals(password)) {
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
 
-                return user;
+                if (user.getPassword() != null &&
+                    user.getPassword().equals(password)) {
+                    return user;
+                }
             }
 
             return null;
