@@ -1,7 +1,7 @@
 package com.klu.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.klu.model.Resume;
+import com.klu.model.User;
 
-public interface ResumeRepository extends JpaRepository<Resume, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 }
