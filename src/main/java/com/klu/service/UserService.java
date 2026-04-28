@@ -11,8 +11,8 @@ import com.klu.repository.UserRepository;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository repo;
+   @Autowired
+private UserRepository repo;
 
     // 🔹 Register (student + admin)
     public User register(User user) {
